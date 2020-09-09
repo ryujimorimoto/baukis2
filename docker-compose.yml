@@ -16,6 +16,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     environment:
       WEBPACKER_DEV_SERVER_HOST: webpacker
       EDITOR: vim
@@ -34,3 +35,9 @@ services:
     stdin_open: true
     depends_on:
       - web
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
