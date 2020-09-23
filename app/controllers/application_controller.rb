@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::Base
   layout :set_layout
 
-rescue_from StandardError, with: :rescue500
+  class Forbidden < ActionController::ActionControllerError; end
+  class IpAddressRejected < ActionController::ActionControllerError; end
+
+  # rescue_fromは親子関係を指定する場合、先祖の方を先に指定しなければならない。
+  rescue_from StandardError, with: :rescue500
+  # ForbiddenとIpAddressRejectedは、StandardErrorの子孫クラスなので、後に記載しなければならない。
+  rescue_from Forbidden, with: :rescue403
+  rescue_from IpAddressRejected, with: :rescue403
 
   private
   def set_layout

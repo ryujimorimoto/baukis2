@@ -1,4 +1,13 @@
 <div id="error">
   <h1>403 権限エラー</h1>
-  <p>アクセス権限がないため、ページを開ませんでした。</p>
+  <p>
+    <%=
+      case @exception
+      when ApplicationController::IpAddressRejected
+        "あなたのIPアドレスI(#{request.ip})からは利用できません。"
+      else
+        "指定されたページを閲覧する権限がありません。"
+      end
+     %>
+  </p>
 </div>
