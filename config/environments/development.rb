@@ -65,5 +65,5 @@ Rails.application.configure do
     admin: {host: "baukis2", path: ""},
     customer: {host: "baukis2", path: ""}
   }
-  config.web_console.whitelisted_ips = [ "172.16.0.0/12" ]
+  # config.web_console.whitelisted_ips = [ "172.16.0.0/12" ]
 end

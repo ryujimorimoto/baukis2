@@ -1,25 +1,26 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:12
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
   web: &app_base
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -e production"
+    command: /bin/sh
     volumes:
       - .:/myapp
     ports:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     environment:
-      WEBPACKER_DEV_SERVER_HOST: webpacker
       EDITOR: vim
       # RAILS_SERVE_STATIC_FILES: 1
+    tty: true
+    stdin_open: true
   webpacker:
     <<: *app_base
     command: /bin/sh -c "bundle install && rm -rf /app/public/packs && bin/webpack-dev-server"
@@ -34,3 +35,9 @@ services:
     stdin_open: true
     depends_on:
       - web
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"

@@ -11,6 +11,25 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
 ```
 - asset pipelineを利用しない。webpackerを使用する。
 
+## 開発環境の構築
+下記のコマンドを入力
+```
+vim /etc/hosts
+```
+下記のように127.0.0.1のところへbaukis2を追記する
+- 127.0.0.1 baukis2
+
+下記のコマンドを入力する
+```
+docker-compose build
+docker-compose up -d
+docker-compose exec web bash
+>myapp# yarn install
+>myapp# bin/rails db:setup
+>myapp# bin/rails s -b 0.0.0.0
+```
+※>myapp#はdockerコンテナを意味する
+
 ## 学習内容のメモ
 ### rspec
 #### rspecのマッチャー
@@ -30,3 +49,8 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
 - - エラーが起きることを期待する
 - be_within + of
 - - be_within(Y).of(X) ：「数値 X がプラスマイナス Y の範囲内に収まっていること」
+
+### Tips
+- Rubyの%記法について
+- - %()は""と同じ意味
+- - %w()は[]（配列の生成）と同じ意味
