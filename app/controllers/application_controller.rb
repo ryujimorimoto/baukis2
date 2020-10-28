@@ -3,12 +3,7 @@ class ApplicationController < ActionController::Base
 
   class Forbidden < ActionController::ActionControllerError; end
   class IpAddressRejected < ActionController::ActionControllerError; end
-
-  # rescue_fromは親子関係を指定する場合、先祖の方を先に指定しなければならない。
-  rescue_from StandardError, with: :rescue500
-  # ForbiddenとIpAddressRejectedは、StandardErrorの子孫クラスなので、後に記載しなければならない。
-  rescue_from Forbidden, with: :rescue403
-  rescue_from IpAddressRejected, with: :rescue403
+  include ErrorHandlers if Rails.env.production?
 
   private
   def set_layout
@@ -19,11 +14,5 @@ class ApplicationController < ActionController::Base
       "customer"
     end
   end
-  def rescue403(e)
-    @exception = e
-    render template: "errors/forbidden", status: 403
-  end
-  def rescue500(e)
-    render template: "errors/internal_server_error", status: 500
-  end
+
 end
