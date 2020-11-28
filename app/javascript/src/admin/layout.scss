@@ -1,9 +1,10 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
-div#wrapper{
+div#wrapper {
   position: relative;
   box-sizing: border-box;
   min-height: 100%;
@@ -18,6 +19,11 @@ header {
   span.log-mark {
     font-weight: bold;
   }
+}
+
+a {
+  float: right;
+  color: $very_light_gray;
 }
 footer {
   bottom: 0;

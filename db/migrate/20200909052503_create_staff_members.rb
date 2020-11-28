@@ -6,13 +6,13 @@ class CreateStaffMembers < ActiveRecord::Migration[6.0]
       t.string :family_name_kana, null: false
       t.string :given_name, null: false
       t.string :given_name_kana, null: false
-      t.string :password_digest
+      t.string :password_digest, null: false
       t.string :start_date, null: false
       t.string :end_date
       t.boolean :suspended, null: false, default: false
       t.timestamps
     end
-    add_index :staff_members, "LOWER(email)", unique: true
-    add_index :staff_members, [:family_name_kana, :given_name_kana]
+    add_index :staff_members, 'LOWER(email)', unique: true
+    add_index :staff_members, %i[family_name_kana given_name_kana]
   end
 end
