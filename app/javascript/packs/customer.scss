@@ -1,0 +1,9 @@
+@import "~bootstrap/scss/bootstrap";
+/* パーシャル */
+@import "src/_colors";
+@import "src/_dimentions";
+
+/* スタイル */
+@import "src/customer/layout";
+@import "src/customer/container";
+@import "src/errors.scss";
