@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'sessions/new'
+  end
+  namespace :staff do
+    get 'sessions/new'
+  end
   config = Rails.application.config.baukis2
   constraints host: config[:staff][:host] do
   end
